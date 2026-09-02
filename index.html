@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reserva de Espacios</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!--  -->
+  <header>
+    <div class="logo">Reservas <span>Espacios</span></div>
+    <nav>
+      <a href="#seccion-calendario" class="nav-link">Ver disponibilidad</a>
+      <a href="#seccion-formulario" class="nav-link nav-link--cta">Reservar ahora</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- seccion 1 calendario-->
+    <section id="seccion-calendario" class="seccion">
+      <div class="container">
+
+        <div class="seccion-header">
+          <div>
+            <h1 class="section-title">Disponibilidad de Espacios</h1>
+            <p class="section-subtitle">Consulta los horarios ocupados antes de hacer tu solicitud.</p>
+          </div>
+          <a href="#seccion-formulario" class="btn-reservar">Ir a reservar</a>
+        </div>
+
+        <!-- Stats clicables -->
+        <div class="stats-row">
+          <button class="stat-card" onclick="abrirPanel('activas')" aria-label="Ver reservas activas">
+            <div class="stat-number" id="stat-total">—</div>
+            <div class="stat-label">Reservas activas</div>
+            <div class="stat-hint">Ver detalle →</div>
+          </button>
+          <button class="stat-card" onclick="abrirPanel('hoy')" aria-label="Ver reservas de hoy">
+            <div class="stat-number" id="stat-hoy">—</div>
+            <div class="stat-label">Reservas hoy</div>
+            <div class="stat-hint">Ver detalle →</div>
+          </button>
+          <button class="stat-card" onclick="abrirPanel('salas')" aria-label="Ver salas ocupadas hoy">
+            <div class="stat-number" id="stat-salas">—</div>
+            <div class="stat-label">Salas ocupadas hoy</div>
+            <div class="stat-hint">Ver detalle →</div>
+          </button>
+        </div>
+
+        <!-- Filtros -->
+        <div class="filters">
+          <span class="filter-label">Filtrar sala:</span>
+          <button class="filter-btn active" onclick="filtrarSala('todas', this)">Todas</button>
+          <button class="filter-btn" onclick="filtrarSala('Salón Emaús', this)">Salón Emaús</button>
+          <button class="filter-btn" onclick="filtrarSala('Salón Jericó', this)">Salón Jericó</button>
+          <button class="filter-btn" onclick="filtrarSala('Sala de juntas Peniel (Piso 1)', this)">Peniel P1</button>
+          <button class="filter-btn" onclick="filtrarSala('Sala de juntas Bethel (Piso 3)', this)">Bethel P3</button>
+          <button class="filter-btn" onclick="filtrarSala('Auditorio principal', this)">Auditorio</button>
+          <button class="filter-btn" onclick="filtrarSala('Mini templo Mkids', this)">Mkids</button>
+          <button class="filter-btn" onclick="filtrarSala('Casino', this)">Casino</button>
+        </div>
+
+        <!-- Error -->
+        <div class="error-msg" id="error-msg">
+          ⚠️ No se pudieron cargar las reservas. Verifica que la URL del script esté configurada.
+        </div>
+
+        <!-- Calendario -->
+        <div class="calendar-card">
+          <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <span>Cargando reservas...</span>
+          </div>
+          <div id="calendar" style="display:none;"></div>
+          <div class="legend" id="legend" style="display:none;">
+            <div class="legend-item"><div class="legend-dot" style="background:#4a7c6f"></div>Salón Emaús</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#c8a96e"></div>Salón Jericó</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#5b6abf"></div>Peniel P1</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#8e44ad"></div>Bethel P3</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#c0392b"></div>Auditorio</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#16a085"></div>Mkids</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#d35400"></div>Casino</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- divisor -->
+    <div class="divisor">
+      <div class="divisor-linea"></div>
+      <span class="divisor-texto">¿Listo para reservar?</span>
+      <div class="divisor-linea"></div>
+    </div>
+
+    <!-- seccion 2 formulario -->
+    <section id="seccion-formulario" class="seccion seccion--dark">
+      <div class="container">
+
+        <div class="seccion-header">
+          <div>
+            <h2 class="section-title section-title--light">Solicitar un Espacio</h2>
+            <p class="section-subtitle section-subtitle--light">
+              Completa el formulario y recibirás un correo con la confirmación o el rechazo de tu reserva.
+            </p>
+          </div>
+          <a href="#seccion-calendario" class="btn-volver">↑ Ver calendario</a>
+        </div>
+
+        <div class="aviso">
+          <span class="aviso-icon">💡</span>
+          <p>Antes de reservar, consulta el calendario de disponibilidad arriba para asegurarte de que el espacio y el horario estén libres.</p>
+        </div>
+
+        <div class="form-wrapper">
+          <iframe
+            src="https://docs.google.com/forms/d/e/1FAIpQLSfLQ90frMxPWjl0jc_GSjWZvnKNDDbYQrNdkDEM9aJU7Q-Azg/viewform"
+            height="1000"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+            title="Formulario de reserva de espacios">
+            Cargando formulario...
+          </iframe>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Sistema de Reservas &nbsp;·&nbsp;
+      <a href="#seccion-calendario">Ver disponibilidad</a> &nbsp;·&nbsp;
+      <a href="#seccion-formulario">Reservar</a>
+    </p>
+  </footer>
+
+  <!--modal detalle del evento-->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <button class="modal-close" id="modal-close-btn">×</button>
+      <span class="modal-badge">Activa</span>
+      <div class="modal-sala" id="modal-sala">—</div>
+      <div class="modal-row">
+        <div>
+          <div class="modal-info-label"></div>
+          <div class="modal-info-value" id="modal-fecha">—</div>
+        </div>
+      </div>
+      <div class="modal-row">
+        <div>
+          <div class="modal-info-label"></div>
+          <div class="modal-info-value" id="modal-hora">—</div>
+        </div>
+      </div>
+      <div class="modal-row">
+        <div>
+          <div class="modal-info-label"></div>
+          <div class="modal-info-value" id="modal-nombre">—</div>
+        </div>
+      </div>
+      <div class="modal-row">
+        <div>
+          <div class="modal-info-label"></div>
+          <div class="modal-info-value" id="modal-area">—</div>
+        </div>
+      </div>
+      <a href="#seccion-formulario" class="modal-btn-reservar" onclick="cerrarModal()">
+        Reservar este espacio
+      </a>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
